@@ -1,0 +1,39 @@
+GET http://localhost:8080/api/rooms
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/rooms/2
+Accept: application/json
+
+###
+
+POST http://localhost:8080/api/rooms
+Content-Type: application/json
+
+{
+  "roomNewNumber": "14",
+  "adults": 2
+}
+
+###
+
+PATCH http://localhost:8080/api/rooms/2
+Content-Type: application/json
+
+{
+  "roomNewNumber": "14",
+  "adults": 5
+}
+
+###
+
+PUT http://localhost:8080/api/rooms/2
+Content-Type: application/json
+
+{
+  "roomNewNumber": "7",
+  "adults": 3
+}
+
+###

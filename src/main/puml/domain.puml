@@ -1,0 +1,87 @@
+@startuml
+
+entity Account{
+accountName: String
+password: String
+accountType: AccountType
+resetPassword(): Boolean
+}
+
+enum AccountType{
+ADMIN
+MEMBER
+GUEST
+}
+
+abstract class Person{
+firstName: String
+lastName: String
+primaryAddress: Address
+alternativeAddresses : List<Address>
+}
+
+entity Booking{
+reservationDescription: String
+durationOfNights: Integer
+checkIn: LocalDateTime
+checkOut: LocalDateTime
+statusBooking: BookingStatus
+person: Person
+}
+
+class Hotel{
+hotelDescription: String
+hotelAddress: String
+rooms: List<Room>
+}
+
+enum BookingStatus{
+PENDING
+CONFIRMED
+CANCELED
+CHECKED_IN
+CHECKED_OUT
+}
+
+class Room{
+roomDescription: String
+price: Integer
+isRoomAvailable(): Boolean
+checkIn(): Boolean
+checkOut(): Boolean
+category: RoomCategory
+hotel: Hotel
+}
+
+class RoomBooking{
+room: Room
+Booking: Booking
+}
+
+enum RoomCategory{
+STANDARD
+DELUXE
+FAMILY SUITE
+BUSINESS SUITE
+}
+
+class Address<<V, #BB7788>>{
+zipCode: String
+city: String
+streetNumber: String
+}
+
+Booking "0..n" --"1" BookingStatus : > has
+Booking "1" --"0..n" RoomBooking
+Room "1" --"0..n" RoomBooking
+
+Room "n" --> "1" Hotel
+Room "0..n" --"1" RoomCategory : > has
+
+Booking "n" --> "1" Person
+Person  --  Address
+Person  *--  Address
+Account --|> Person
+Account "0..n" --"1" AccountType : > has
+
+@enduml
